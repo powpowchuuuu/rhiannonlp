@@ -4,7 +4,6 @@ import AppStoreButton from "../components/AppStoreButton.astro";
 import PhoneShot from "../components/PhoneShot.astro";
 import NowPlayingPill from "../components/NowPlayingPill.astro";
 import Feature from "../components/Feature.astro";
-import AppIcon from "../components/AppIcon.astro";
 
 // TODO: replace with the App Store (or TestFlight) link once the app is listed.
 const APP_STORE_URL = "#";
@@ -28,7 +27,7 @@ const year = new Date().getFullYear();
   <main>
     <section class="hero">
       <div class="wrap center">
-        <AppIcon size={112} />
+        <img class="logo" src="/logo.svg" alt="" width="80" height="108" />
         <NowPlayingPill title="Rhiannon" artist="Fleetwood Mac" />
         <h1>Your Apple Music,<br />on Last.fm.</h1>
         <p class="lede muted measure">
@@ -132,7 +131,9 @@ const year = new Date().getFullYear();
     margin-top: 0.5rem;
   }
 
-  .hero :global(.icon) {
+  .logo {
+    width: clamp(64px, 8vw, 88px);
+    height: auto;
     margin-bottom: 0.5rem;
   }
 
