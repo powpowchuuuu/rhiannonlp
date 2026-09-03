@@ -20,8 +20,11 @@
   --radius-live: 22px;
   --radius-phone: 44px;
 
-  --font: ui-rounded, "SF Pro Rounded", -apple-system, BlinkMacSystemFont,
-    system-ui, "Helvetica Neue", sans-serif;
+  /* iOS and Safari get the real SF Pro Rounded via ui-rounded. Apple's licence
+     forbids embedding it, so every other browser gets Nunito, the closest
+     free rounded face. */
+  --font: ui-rounded, "SF Pro Rounded", "Nunito", -apple-system,
+    BlinkMacSystemFont, system-ui, "Helvetica Neue", sans-serif;
 
   --measure: 34rem;
   --page: 64rem;
