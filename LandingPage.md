@@ -7,36 +7,43 @@ s'en fait : chaque point ci-dessous existe et se voit à l'écran.
 
 ## Les captures livrées
 
-Dans `public/shots/`. Prises au simulateur sur un vrai compte Last.fm, données
-réelles — pochettes, compteurs d'auditeurs, notices, étiquettes.
+Dans `src/assets/shots/`, servies par `astro:assets`. Prises au simulateur sur
+le compte **arestotle** — 1 132 843 écoutes. Données réelles de bout en bout :
+pochettes, compteurs personnels, classements, notices, étiquettes.
 
 | Fichier | Appareil | Morceau | Pour |
 |---|---|---|---|
-| `detail-iphone.png` | iPhone, 1260 × 2736 | *stupid song* — Olivia Rodrigo | le héros |
-| `detail-ipad.png` | iPad, 1640 × 2360 | *stupid song* — Olivia Rodrigo | le héros, version large |
+| `detail-iphone.png` | iPhone, 1260 × 2736 | *stupid song* — Olivia Rodrigo, **44 écoutes** | le héros |
+| `detail-ipad.png` | iPad, 1640 × 2360 | *stupid song* — Olivia Rodrigo, **44 écoutes** | le héros, version large |
+| `detail-sabrina-iphone.png` | iPhone | *Espresso* — Sabrina Carpenter, 16 écoutes | seconde section |
 | `detail-taylor-iphone.png` | iPhone | *I Knew It, I Knew You* — Taylor Swift | seconde section |
-| `detail-sabrina-iphone.png` | iPhone | *House Tour* — Sabrina Carpenter | seconde section |
-| `journal-iphone.png` | iPhone | — | « A journal, not a feed. » |
-| `tops-iphone.png` | iPhone | — | le nuage de mots |
-| `artist-iphone.png` | iPhone | Fleetwood Mac | « A page behind every track. » |
+| `journal-iphone.png` | iPhone | **1 132 843 écoutes**, éventail visible | « A journal, not a feed. » |
+| `tops-iphone.png` | iPhone | le top de l'année, neuf rangs | le nuage de mots |
+| `artist-iphone.png` | iPhone | Fleetwood Mac, 596 écoutes | « A page behind every track. » |
 
 Le composant `Shot.astro` attend `src` ; il rend un bloc vide tant qu'on ne le
 lui donne pas. `phone` pour les captures d'iPhone, sans lui pour l'iPad.
 
 ### Ce qui cloche encore sur ces captures
 
-**« JAMAIS ÉCOUTÉ · 0 ».** Le compte qui a servi aux prises n'a jamais joué ces
-morceaux. Sur un héros, c'est le pire chiffre possible — la page vante un
-journal d'écoutes et montre un compteur à zéro. À refaire depuis un compte qui
-a réellement écouté le morceau choisi.
+**Quatre lignes du journal n'ont pas de pochette.** Les écoutes les plus
+récentes du compte sont un remix de Charli xcx, une reprise et deux titres de
+Кино : ni Last.fm ni Apple ni Deezer n'en ont de couverture. Ce n'est pas un
+défaut de l'app — elle cherche partout et affiche son aplat quand personne n'a
+l'image — mais c'est le haut de la capture. Une prise faite après avoir écouté
+deux ou trois albums bien pourvus serait plus vendeuse.
 
 **La barre d'état** porte l'heure du simulateur et pas de réseau cellulaire. À
 recadrer, ou à reprendre sur un appareil.
 
-**L'iPad est en thème clair**, l'iPhone en sombre : la fiche prend la teinte de
-sa pochette, et celle d'Olivia Rodrigo est claire. Ce n'est pas un défaut —
-c'est une fonctionnalité de l'app — mais il faut le savoir avant de composer la
-page, sous peine de croire à une incohérence.
+**Les thèmes diffèrent d'une capture à l'autre.** La fiche prend la teinte de
+sa pochette : *stupid song* est claire, donc sa fiche l'est. Ce n'est pas une
+incohérence, c'est une fonctionnalité — mais il faut le savoir avant de
+composer la page.
+
+**Le Top est pris sur l'année.** Sur sept jours, ce compte n'a que deux
+morceaux, et l'écran affichait « Rien à classer ». L'année donne neuf rangs, et
+le sous-titre le dit — « cette année ».
 
 ---
 
@@ -46,26 +53,22 @@ Demandées par la page, dans l'ordre où elle en a besoin.
 
 ### Indispensables — chacune a déjà sa place
 
-1. ~~**`journal-iphone.png`**~~ — **livrée.** Une journée bien remplie, des
-   pochettes variées, les en-têtes de journée. **Il y manque l'éventail** : le
-   compte de test n'a pas de suite d'un même artiste dans ses écoutes récentes,
-   et on ne peut pas en fabriquer une. À reprendre depuis un compte qui a
-   enchaîné trois titres du même artiste.
+1. ~~**`journal-iphone.png`**~~ — **livrée**, avec son éventail : trois écoutes
+   d'affilée du même remix de Charli xcx, groupées sous une seule pochette.
+   Voir plus haut la réserve sur les couvertures manquantes.
 
 2. **`review-iphone.png`** — la salle d'attente, deux ou trois écoutes en
    attente d'approbation. Pour « Uncertain listens wait for your approval. »
    C'est l'argument que personne d'autre ne tient : il mérite une image.
 
-3. ~~**`tops-iphone.png`**~~ — **livrée.** Neuf rangs avec leurs pochettes.
-   Sur « depuis toujours » et non sur la semaine : le compte de test n'a rien
-   écouté ces sept derniers jours, et la page s'affichait « Rien à classer ».
+3. ~~**`tops-iphone.png`**~~ — **livrée.** Neuf rangs avec leurs pochettes, sur
+   l'année.
 
 ### Reprise du héros
 
-4. **`detail-iphone.png`** et **`detail-ipad.png`** — les mêmes fiches, mais
-   depuis un compte qui a réellement écouté le morceau, pour que le compteur ne
-   soit pas à zéro. **Un titre beaucoup écouté, avec un chiffre qui parle, vaut
-   mieux que la plus belle des pochettes.**
+4. ~~**`detail-iphone.png`** et **`detail-ipad.png`**~~ — **reprises.** *stupid
+   song* affiche maintenant **44 écoutes** au lieu de zéro, et la page peut dire
+   ce qu'elle voulait dire.
 
 ### Bienvenues, sans place réservée encore
 
@@ -89,11 +92,12 @@ lisent que des données publiques.
 
 - La **salle d'attente** n'a de contenu que si le moteur a vraiment relevé des
   écoutes douteuses. On ne peut pas en fabriquer sans mentir sur ce que l'app
-  fait.
+  fait. **C'est la seule capture indispensable qui manque encore**, et c'est
+  celle qui porte l'argument que personne d'autre ne tient.
 - Le **widget** vit sur l'écran d'accueil, et un simulateur ne pose pas de
   widget tout seul.
-- Le **compteur d'écoutes** d'une fiche est celui du compte connecté. Un compte
-  de test rendra toujours zéro.
+- Les **réglages avec ListenBrainz activé** demandent un compte ListenBrainz
+  connecté.
 
 ---
 
