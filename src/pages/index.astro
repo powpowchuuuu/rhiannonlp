@@ -1,13 +1,32 @@
 ---
 import Base from "../layouts/Base.astro";
 import AppStoreButton from "../components/AppStoreButton.astro";
-import PhoneShot from "../components/PhoneShot.astro";
+import Shot from "../components/Shot.astro";
 import NowPlayingPill from "../components/NowPlayingPill.astro";
 import Feature from "../components/Feature.astro";
+import Cloud from "../components/Cloud.astro";
 
 // TODO: replace with the App Store (or TestFlight) link once the app is listed.
 const APP_STORE_URL = "#";
 const year = new Date().getFullYear();
+
+const keeps = [
+  "Journal",
+  "Tops",
+  "Lyrics",
+  "Album pages",
+  "Artist pages",
+  "Love",
+  "Review queue",
+  "Last.fm",
+  "ListenBrainz",
+  "Now playing",
+  "Play counts",
+  "Background sync",
+  "No ads",
+  "No account",
+  "No Pro tier",
+];
 ---
 
 <Base
@@ -16,68 +35,68 @@ const year = new Date().getFullYear();
 >
   <header class="nav">
     <div class="wrap row">
-      <a class="brand" href="/">
-        <img src="/logo.svg" alt="" width="18" height="24" />
-        <span>Rhiannon</span>
+      <a class="brand" href="/" aria-label="Rhiannon">
+        <img src="/logo.svg" alt="" width="20" height="27" />
       </a>
-      <a class="get" href={APP_STORE_URL}>Get the app</a>
+      <nav class="links">
+        <a href="#journal">Journal</a>
+        <a href="#background">Background</a>
+        <a href="#free">Free</a>
+        <a class="get" href={APP_STORE_URL}>Get the app</a>
+      </nav>
     </div>
   </header>
 
   <main>
     <section class="hero">
       <div class="wrap center">
-        <img class="logo" src="/logo.svg" alt="" width="80" height="108" />
         <NowPlayingPill title="Rhiannon" artist="Fleetwood Mac" />
-        <h1>Your Apple Music,<br />on Last.fm.</h1>
-        <p class="lede muted measure">
+        <p class="name">Rhiannon</p>
+        <h1>Every listen,<br />on Last.fm.</h1>
+        <Shot class="hero-shot" alt="Rhiannon on iPhone" />
+        <p class="lede measure">
           Rhiannon scrobbles what you play in Apple Music to Last.fm and ListenBrainz.
           Free, with nothing to unlock.
         </p>
         <AppStoreButton href={APP_STORE_URL} />
-        <p class="platform faint">For iPhone. Requires a Last.fm account.</p>
-        <PhoneShot width={360} class="hero-shot" alt="Rhiannon's listening journal" />
+        <p class="platform faint">Available on iPhone. Requires a Last.fm account.</p>
       </div>
     </section>
 
-    <Feature eyebrow="Journal" title="Every listen, in one place.">
+    <Feature id="journal" title="A journal, not a feed.">
       <p>
-        Rhiannon keeps a journal of what you play: day by day, with artwork, in the order
-        you heard it. Tap a track for lyrics, facts, and your own history with it.
+        Rhiannon keeps what you play day by day, with artwork, in the order you heard it.
+        Tap a track for lyrics, facts, and your own history with it. Your tops for the
+        week, the month, the year.
       </p>
-      <p>Your tops for the week, the month, the year, drawn from your Last.fm.</p>
     </Feature>
 
-    <Feature eyebrow="Background" title="It catches up when iOS looks away." flip>
+    <Feature id="background" title="It catches up when iOS looks away.">
       <p>
         iOS suspends apps in the background, so a scrobbler can't just watch the player.
-        Rhiannon reads your library, your Apple Music history, and the player itself,
-        then reconciles the three so nothing is counted twice or lost.
+        Rhiannon reads your library, your Apple Music history, and the player itself, then
+        reconciles the three so nothing is counted twice or lost. Open the app, and it's
+        already done.
       </p>
-      <p>Open the app, and it's already done.</p>
     </Feature>
 
-    <Feature eyebrow="Last.fm & ListenBrainz" title="Love it. Check it. Send it.">
+    <Feature title="Love it. Check it. Send it.">
       <p>
         Love a track straight from the journal. Scrobbles that Rhiannon isn't sure about
-        wait for your say before they go out.
+        wait for your say before they go out. ListenBrainz is one switch away, if you want
+        both.
       </p>
-      <p>ListenBrainz is one switch away, if you want both.</p>
     </Feature>
 
-    <section class="free">
+    <Cloud words={keeps} shotAlt="Rhiannon track page" />
+
+    <section class="free" id="free">
       <div class="wrap center">
         <h2>Free. Really.</h2>
-        <p class="lede muted measure">
-          No subscription, no Pro tier, no ads, no account beyond your Last.fm.
-          Rhiannon is a small app made for one thing, and it stays that way.
+        <p class="lede measure">
+          No subscription, no Pro tier, no ads, no account beyond your Last.fm. Rhiannon is
+          a small app made for one thing, and it stays that way.
         </p>
-      </div>
-    </section>
-
-    <section class="cta">
-      <div class="wrap center">
-        <h2>Start scrobbling.</h2>
         <AppStoreButton href={APP_STORE_URL} />
       </div>
     </section>
@@ -106,35 +125,73 @@ const year = new Date().getFullYear();
     gap: 1.5rem;
   }
 
+  /* Sticky, blurred, like nowplaying.co. */
   .nav {
-    padding-block: 1.25rem;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    padding-block: 0.9rem;
+    background: color-mix(in srgb, var(--surface) 78%, transparent);
+    -webkit-backdrop-filter: blur(18px);
+    backdrop-filter: blur(18px);
   }
 
   .brand {
     display: inline-flex;
-    align-items: center;
-    gap: 0.6rem;
     color: var(--ink);
+  }
+
+  .links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.9rem, 2.5vw, 1.5rem);
     font-weight: 600;
-    font-size: 1.125rem;
+    font-size: 0.9375rem;
+  }
+
+  .links a {
+    color: var(--ink);
+  }
+
+  .links a:not(.get) {
+    display: none;
+  }
+
+  @media (min-width: 40rem) {
+    .links a:not(.get) {
+      display: inline;
+    }
   }
 
   .get {
-    font-weight: 600;
+    padding: 0.55rem 1rem;
+    border-radius: var(--radius-round);
+    background: var(--accent);
+    color: var(--accent-ink) !important;
+  }
+
+  .get:hover {
+    text-decoration: none;
+    opacity: 0.92;
   }
 
   .hero {
-    padding-block: clamp(3rem, 8vw, 6rem) 0;
+    padding-block: clamp(3rem, 8vw, 5rem) 0;
+  }
+
+  .name {
+    font-weight: 700;
+    font-size: 1.125rem;
+    margin-bottom: -0.75rem;
   }
 
   .hero h1 {
-    margin-top: 0.5rem;
+    color: var(--accent);
   }
 
-  .logo {
-    width: clamp(64px, 8vw, 88px);
-    height: auto;
-    margin-bottom: 0.5rem;
+  .hero :global(.hero-shot) {
+    max-width: 64rem;
+    margin-block: clamp(1rem, 4vw, 2.5rem);
   }
 
   .lede {
@@ -146,21 +203,13 @@ const year = new Date().getFullYear();
     margin-top: -0.5rem;
   }
 
-  :global(.hero-shot) {
-    margin-top: clamp(1.5rem, 5vw, 3rem);
-  }
-
   .free {
     padding-block: clamp(4rem, 10vw, 7rem);
-    background: var(--surface-raised);
   }
 
   .free h2 {
-    font-size: clamp(2.25rem, 6vw, 3.5rem);
-  }
-
-  .cta {
-    padding-block: clamp(4rem, 10vw, 7rem);
+    color: var(--accent);
+    font-size: clamp(2.5rem, 7vw, 4rem);
   }
 
   .foot {

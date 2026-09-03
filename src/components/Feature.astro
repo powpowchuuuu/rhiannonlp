@@ -1,27 +1,23 @@
 ---
-/* One idea per section: a short title, a paragraph or two, a screenshot.
-   `flip` puts the image on the left. */
-import PhoneShot from "./PhoneShot.astro";
+/* One idea per section, nowplaying.co style: a big accent heading, a short
+   paragraph on a narrow measure, then a wide image with no frame. */
+import Shot from "./Shot.astro";
 
 interface Props {
+  id?: string;
   title: string;
-  eyebrow?: string;
   shot?: string;
   shotAlt?: string;
-  flip?: boolean;
 }
 
-const { title, eyebrow, shot, shotAlt, flip = false } = Astro.props;
+const { id, title, shot, shotAlt } = Astro.props;
 ---
 
-<section class:list={["feature", { flip }]}>
-  <div class="wrap grid">
-    <div class="text">
-      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
-      <h2>{title}</h2>
-      <div class="body muted"><slot /></div>
-    </div>
-    <PhoneShot src={shot} alt={shotAlt} width={300} class="image" />
+<section class="feature" id={id}>
+  <div class="wrap">
+    <h2>{title}</h2>
+    <div class="body measure"><slot /></div>
+    <Shot src={shot} alt={shotAlt} class="image" />
   </div>
 </section>
 
@@ -30,23 +26,15 @@ const { title, eyebrow, shot, shotAlt, flip = false } = Astro.props;
     padding-block: clamp(4rem, 10vw, 7rem);
   }
 
-  .grid {
+  .wrap {
     display: grid;
-    gap: 2.5rem;
-    align-items: center;
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
   }
 
-  .text {
-    display: grid;
-    gap: 1.25rem;
-    max-width: var(--measure);
-  }
-
-  .eyebrow {
+  h2 {
     color: var(--accent);
-    font-weight: 600;
-    font-size: 0.9375rem;
-    letter-spacing: 0.01em;
   }
 
   .body {
@@ -55,18 +43,8 @@ const { title, eyebrow, shot, shotAlt, flip = false } = Astro.props;
     font-size: 1.125rem;
   }
 
-  @media (min-width: 48rem) {
-    .grid {
-      grid-template-columns: 1fr auto;
-      gap: clamp(2.5rem, 8vw, 6rem);
-    }
-
-    .flip .grid {
-      grid-template-columns: auto 1fr;
-    }
-
-    .flip .text {
-      order: 2;
-    }
+  .wrap :global(.image) {
+    margin-top: clamp(1.5rem, 5vw, 3rem);
+    max-width: 56rem;
   }
 </style>

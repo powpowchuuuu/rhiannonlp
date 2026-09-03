@@ -19,6 +19,7 @@
   --radius-button: 14px;
   --radius-live: 22px;
   --radius-phone: 44px;
+  --radius-round: 9999px;
 
   /* iOS and Safari get the real SF Pro Rounded via ui-rounded. Apple's licence
      forbids embedding it, so every other browser gets Nunito, the closest

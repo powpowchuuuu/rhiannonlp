@@ -1,0 +1,60 @@
+---
+/* Everything the app keeps, as a cloud of bold faint words behind a phone. */
+import Shot from "./Shot.astro";
+
+interface Props {
+  words: string[];
+  shot?: string;
+  shotAlt?: string;
+}
+
+const { words, shot, shotAlt } = Astro.props;
+---
+
+<section class="cloud">
+  <div class="wrap stage">
+    <ul class="words" aria-label="What Rhiannon keeps">
+      {words.map((w) => <li>{w}</li>)}
+    </ul>
+    <Shot phone src={shot} alt={shotAlt} class="phone" />
+  </div>
+</section>
+
+<style>
+  .cloud {
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+
+  .stage {
+    position: relative;
+    display: grid;
+    place-items: center;
+    min-height: 32rem;
+  }
+
+  .words {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: center;
+    gap: 0.4em 1.2em;
+    color: var(--ink-faint);
+    opacity: 0.45;
+    font-weight: 800;
+    font-size: clamp(1.25rem, 3.2vw, 2.25rem);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    line-height: 1.1;
+    user-select: none;
+  }
+
+  .stage :global(.phone) {
+    position: relative;
+    width: min(280px, 70%);
+  }
+</style>
