@@ -2,7 +2,6 @@
 import Base from "../layouts/Base.astro";
 import AppStoreButton from "../components/AppStoreButton.astro";
 import Shot from "../components/Shot.astro";
-import NowPlayingPill from "../components/NowPlayingPill.astro";
 import Feature from "../components/Feature.astro";
 import Cloud from "../components/Cloud.astro";
 
@@ -50,7 +49,6 @@ const keeps = [
   <main>
     <section class="hero">
       <div class="wrap center">
-        <NowPlayingPill title="Rhiannon" artist="Fleetwood Mac" />
         <p class="name">Rhiannon</p>
         <h1>Every listen,<br />on Last.fm.</h1>
         <Shot class="hero-shot" alt="Rhiannon on iPhone" />
@@ -182,7 +180,7 @@ const keeps = [
   .name {
     font-weight: 700;
     font-size: 1.125rem;
-    margin-bottom: -0.75rem;
+    margin-bottom: -1rem;
   }
 
   .hero h1 {
