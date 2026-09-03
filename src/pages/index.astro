@@ -1,17 +1,161 @@
 ---
+import Base from "../layouts/Base.astro";
+import AppStoreButton from "../components/AppStoreButton.astro";
+import PhoneShot from "../components/PhoneShot.astro";
+import NowPlayingPill from "../components/NowPlayingPill.astro";
+import Feature from "../components/Feature.astro";
 
+// TODO: replace with the App Store (or TestFlight) link once the app is listed.
+const APP_STORE_URL = "#";
+const year = new Date().getFullYear();
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Base
+  title="Rhiannon — Apple Music scrobbler for Last.fm"
+  description="Rhiannon scrobbles what you play in Apple Music to Last.fm and ListenBrainz. Free, with nothing to unlock."
+>
+  <header class="nav">
+    <div class="wrap row">
+      <a class="brand" href="/">Rhiannon</a>
+      <a class="get" href={APP_STORE_URL}>Get the app</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap center">
+        <NowPlayingPill title="Rhiannon" artist="Fleetwood Mac" />
+        <h1>Your Apple Music,<br />on Last.fm.</h1>
+        <p class="lede muted measure">
+          Rhiannon scrobbles what you play in Apple Music to Last.fm and ListenBrainz.
+          Free, with nothing to unlock.
+        </p>
+        <AppStoreButton href={APP_STORE_URL} />
+        <p class="platform faint">For iPhone. Requires a Last.fm account.</p>
+        <PhoneShot width={360} class="hero-shot" alt="Rhiannon's listening journal" />
+      </div>
+    </section>
+
+    <Feature eyebrow="Journal" title="Every listen, in one place.">
+      <p>
+        Rhiannon keeps a journal of what you play: day by day, with artwork, in the order
+        you heard it. Tap a track for lyrics, facts, and your own history with it.
+      </p>
+      <p>Your tops for the week, the month, the year, drawn from your Last.fm.</p>
+    </Feature>
+
+    <Feature eyebrow="Background" title="It catches up when iOS looks away." flip>
+      <p>
+        iOS suspends apps in the background, so a scrobbler can't just watch the player.
+        Rhiannon reads your library, your Apple Music history, and the player itself,
+        then reconciles the three so nothing is counted twice or lost.
+      </p>
+      <p>Open the app, and it's already done.</p>
+    </Feature>
+
+    <Feature eyebrow="Last.fm & ListenBrainz" title="Love it. Check it. Send it.">
+      <p>
+        Love a track straight from the journal. Scrobbles that Rhiannon isn't sure about
+        wait for your say before they go out.
+      </p>
+      <p>ListenBrainz is one switch away, if you want both.</p>
+    </Feature>
+
+    <section class="free">
+      <div class="wrap center">
+        <h2>Free. Really.</h2>
+        <p class="lede muted measure">
+          No subscription, no Pro tier, no ads, no account beyond your Last.fm.
+          Rhiannon is a small app made for one thing, and it stays that way.
+        </p>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="wrap center">
+        <h2>Start scrobbling.</h2>
+        <AppStoreButton href={APP_STORE_URL} />
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap row">
+      <p class="faint">© {year} Rhiannon</p>
+      <p class="faint">Not affiliated with Apple, Last.fm, or ListenBrainz.</p>
+    </div>
+  </footer>
+</Base>
+
+<style>
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+
+  .center {
+    display: grid;
+    justify-items: center;
+    text-align: center;
+    gap: 1.5rem;
+  }
+
+  .nav {
+    padding-block: 1.25rem;
+  }
+
+  .brand {
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 1.125rem;
+  }
+
+  .get {
+    font-weight: 600;
+  }
+
+  .hero {
+    padding-block: clamp(3rem, 8vw, 6rem) 0;
+  }
+
+  .hero h1 {
+    margin-top: 0.5rem;
+  }
+
+  .lede {
+    font-size: clamp(1.125rem, 2.2vw, 1.375rem);
+  }
+
+  .platform {
+    font-size: 0.9375rem;
+    margin-top: -0.5rem;
+  }
+
+  :global(.hero-shot) {
+    margin-top: clamp(1.5rem, 5vw, 3rem);
+  }
+
+  .free {
+    padding-block: clamp(4rem, 10vw, 7rem);
+    background: var(--surface-raised);
+  }
+
+  .free h2 {
+    font-size: clamp(2.25rem, 6vw, 3.5rem);
+  }
+
+  .cta {
+    padding-block: clamp(4rem, 10vw, 7rem);
+  }
+
+  .foot {
+    padding-block: 2rem 3rem;
+    font-size: 0.875rem;
+  }
+
+  .foot .row {
+    flex-wrap: wrap;
+  }
+</style>
