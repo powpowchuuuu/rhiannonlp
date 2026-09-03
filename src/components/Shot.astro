@@ -1,35 +1,45 @@
 ---
-/* An image slot. Until the real captures arrive it renders a raised block:
-   `phone` for iPhone proportions, otherwise a wide 16:10 stage for composed
-   mockups. Pass `src` to show the image instead. */
+/* An image slot. Pass an imported image (`src/assets/shots/*.png`) and it is
+   resized and served as WebP by astro:assets. Without one it renders a raised
+   block: `phone` for iPhone proportions, otherwise a wide 16:10 stage. */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
 interface Props {
-  src?: string;
+  src?: ImageMetadata;
   alt?: string;
   phone?: boolean;
+  width?: number;
   class?: string;
 }
 
-const { src, alt = "", phone = false, class: className } = Astro.props;
+const { src, alt = "", phone = false, width = phone ? 640 : 1400, class: className } = Astro.props;
 ---
 
 <figure class:list={["shot", { phone }, className]}>
-  {src ? <img src={src} alt={alt} loading="lazy" /> : <div class="placeholder" aria-hidden="true"></div>}
+  {src ? <Image src={src} alt={alt} width={width} format="webp" quality={82} /> : <div class="placeholder" aria-hidden="true"></div>}
 </figure>
 
 <style>
   .shot {
     margin: 0;
     width: 100%;
-    aspect-ratio: 16 / 10;
     border-radius: var(--radius-live);
     overflow: hidden;
     background: var(--surface-raised);
   }
 
+  .shot:not(:has(img)) {
+    aspect-ratio: 16 / 10;
+  }
+
   .phone {
     width: min(320px, 100%);
-    aspect-ratio: 1 / 2.164;
     border-radius: var(--radius-phone);
+  }
+
+  .phone:not(:has(img)) {
+    aspect-ratio: 1 / 2.164;
   }
 
   .shot img,

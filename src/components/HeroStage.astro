@@ -1,0 +1,53 @@
+---
+/* iPad behind, iPhone in front, overlapping, like nowplaying.co's hero. */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+interface Props {
+  ipad: ImageMetadata;
+  iphone: ImageMetadata;
+  alt: string;
+}
+
+const { ipad, iphone, alt } = Astro.props;
+---
+
+<div class="stage">
+  <Image class="ipad" src={ipad} alt={alt} width={1400} format="webp" quality={82} />
+  <Image class="iphone" src={iphone} alt="" width={640} format="webp" quality={82} />
+</div>
+
+<style>
+  .stage {
+    position: relative;
+    width: 100%;
+    max-width: 58rem;
+    margin-inline: auto;
+    padding-bottom: 6%;
+  }
+
+  .ipad {
+    display: block;
+    width: 78%;
+    margin-left: auto;
+    border-radius: var(--radius-live);
+  }
+
+  .iphone {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 30%;
+    border-radius: var(--radius-phone);
+  }
+
+  @media (max-width: 40rem) {
+    .ipad {
+      width: 86%;
+    }
+
+    .iphone {
+      width: 36%;
+    }
+  }
+</style>

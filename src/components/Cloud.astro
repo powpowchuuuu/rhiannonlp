@@ -1,10 +1,11 @@
 ---
 /* Everything the app keeps, as a cloud of bold faint words behind a phone. */
 import Shot from "./Shot.astro";
+import type { ImageMetadata } from "astro";
 
 interface Props {
   words: string[];
-  shot?: string;
+  shot?: ImageMetadata;
   shotAlt?: string;
 }
 
