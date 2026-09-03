@@ -3,7 +3,13 @@ import Base from "../layouts/Base.astro";
 import AppStoreButton from "../components/AppStoreButton.astro";
 import Shot from "../components/Shot.astro";
 import Feature from "../components/Feature.astro";
+import HeroStage from "../components/HeroStage.astro";
 import Cloud from "../components/Cloud.astro";
+
+import detailIphone from "../assets/shots/detail-iphone.png";
+import detailIpad from "../assets/shots/detail-ipad.png";
+import detailTaylor from "../assets/shots/detail-taylor-iphone.png";
+import detailSabrina from "../assets/shots/detail-sabrina-iphone.png";
 
 // TODO: replace with the App Store (or TestFlight) link once the app is listed.
 const APP_STORE_URL = "#";
@@ -19,11 +25,11 @@ const keeps = [
   "Review queue",
   "Last.fm",
   "ListenBrainz",
-  "Now playing",
   "Play counts",
   "Background sync",
+  "Widget",
   "No ads",
-  "No account",
+  "No tracking",
   "No Pro tier",
 ];
 ---
@@ -38,8 +44,8 @@ const keeps = [
         <img src="/logo.svg" alt="" width="20" height="27" />
       </a>
       <nav class="links">
-        <a href="#journal">Journal</a>
         <a href="#background">Background</a>
+        <a href="#journal">Journal</a>
         <a href="#free">Free</a>
         <a class="get" href={APP_STORE_URL}>Get the app</a>
       </nav>
@@ -51,7 +57,7 @@ const keeps = [
       <div class="wrap center">
         <p class="name">Rhiannon</p>
         <h1>Every listen,<br />on Last.fm.</h1>
-        <Shot class="hero-shot" alt="Rhiannon on iPhone" />
+        <HeroStage ipad={detailIpad} iphone={detailIphone} alt="Rhiannon's track page for stupid song by Olivia Rodrigo, on iPad and iPhone" />
         <p class="lede measure">
           Rhiannon scrobbles what you play in Apple Music to Last.fm and ListenBrainz.
           Free, with nothing to unlock.
@@ -61,39 +67,61 @@ const keeps = [
       </div>
     </section>
 
+    <section class="background" id="background">
+      <div class="wrap center">
+        <h2>It catches up when iOS looks away.</h2>
+        <p class="lede measure">
+          iOS suspends apps in the background, and a naive scrobbler loses everything that
+          plays in the meantime. Rhiannon catches up when it wakes, through three separate
+          sources, and reconciles them so nothing is counted twice or lost.
+        </p>
+        <ul class="sources">
+          <li>
+            <strong>Play counts</strong>
+            <span>What your library says you played, and when it ended.</span>
+          </li>
+          <li>
+            <strong>Live tracking</strong>
+            <span>The player itself, measured while the app is on screen.</span>
+          </li>
+          <li>
+            <strong>Catalog history</strong>
+            <span>Your Apple Music history, across all your devices.</span>
+          </li>
+        </ul>
+        <p class="lede measure approve">
+          Uncertain listens wait for your approval. Nothing goes out that you didn't agree to.
+        </p>
+      </div>
+    </section>
+
     <Feature id="journal" title="A journal, not a feed.">
       <p>
-        Rhiannon keeps what you play day by day, with artwork, in the order you heard it.
-        Tap a track for lyrics, facts, and your own history with it. Your tops for the
-        week, the month, the year.
+        Your listens, day by day, with artwork, in the order you heard them. Runs of the
+        same artist fold under a fan of covers. Tap a track for its page.
       </p>
     </Feature>
 
-    <Feature id="background" title="It catches up when iOS looks away.">
+    <Feature title="A page behind every track.">
       <p>
-        iOS suspends apps in the background, so a scrobbler can't just watch the player.
-        Rhiannon reads your library, your Apple Music history, and the player itself, then
-        reconciles the three so nothing is counted twice or lost. Open the app, and it's
-        already done.
+        Full-bleed artwork, and a page that takes its colours. Release details, Last.fm
+        listener counts, tags, the story behind the song, and the lyrics.
       </p>
+      <Fragment slot="media">
+        <Shot phone src={detailTaylor} alt="Track page for I Knew It, I Knew You by Taylor Swift" />
+        <Shot phone src={detailSabrina} alt="Track page for House Tour by Sabrina Carpenter" />
+      </Fragment>
     </Feature>
 
-    <Feature title="Love it. Check it. Send it.">
-      <p>
-        Love a track straight from the journal. Scrobbles that Rhiannon isn't sure about
-        wait for your say before they go out. ListenBrainz is one switch away, if you want
-        both.
-      </p>
-    </Feature>
-
-    <Cloud words={keeps} shotAlt="Rhiannon track page" />
+    <Cloud words={keeps} shotAlt="Rhiannon on iPhone" />
 
     <section class="free" id="free">
       <div class="wrap center">
         <h2>Free. Really.</h2>
         <p class="lede measure">
-          No subscription, no Pro tier, no ads, no account beyond your Last.fm. Rhiannon is
-          a small app made for one thing, and it stays that way.
+          Background scrobbling, ListenBrainz, the home screen widget: the things other
+          scrobblers sell as Pro, Rhiannon just does. No subscription, no ads, no tracking,
+          no account beyond your Last.fm, which is free too.
         </p>
         <AppStoreButton href={APP_STORE_URL} />
       </div>
@@ -103,7 +131,7 @@ const keeps = [
   <footer class="foot">
     <div class="wrap row">
       <p class="faint">© {year} Rhiannon</p>
-      <p class="faint">Not affiliated with Apple, Last.fm, or ListenBrainz.</p>
+      <p class="faint">Powered by AudioScrobbler. Not affiliated with Apple, Last.fm, or ListenBrainz.</p>
     </div>
   </footer>
 </Base>
@@ -187,8 +215,7 @@ const keeps = [
     color: var(--accent);
   }
 
-  .hero :global(.hero-shot) {
-    max-width: 64rem;
+  .hero :global(.stage) {
     margin-block: clamp(1rem, 4vw, 2.5rem);
   }
 
@@ -199,6 +226,51 @@ const keeps = [
   .platform {
     font-size: 0.9375rem;
     margin-top: -0.5rem;
+  }
+
+  /* The strongest argument gets the most room. */
+  .background {
+    padding-block: clamp(5rem, 12vw, 9rem);
+  }
+
+  .background h2 {
+    color: var(--accent);
+    font-size: clamp(2.25rem, 5.5vw, 3.5rem);
+  }
+
+  .sources {
+    list-style: none;
+    margin: clamp(1rem, 3vw, 2rem) 0;
+    padding: 0;
+    display: grid;
+    gap: 2rem;
+    width: 100%;
+    max-width: 52rem;
+  }
+
+  .sources li {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .sources strong {
+    font-size: 1.25rem;
+    font-weight: 700;
+  }
+
+  .sources span {
+    color: var(--ink-muted);
+  }
+
+  @media (min-width: 40rem) {
+    .sources {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .approve {
+    color: var(--ink);
+    font-weight: 600;
   }
 
   .free {
