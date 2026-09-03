@@ -1,0 +1,42 @@
+---
+interface Props {
+  href: string;
+  label?: string;
+}
+
+const { href, label = "Download on the App Store" } = Astro.props;
+---
+
+<a class="store" href={href}>
+  <svg width="18" height="22" viewBox="0 0 18 22" aria-hidden="true" fill="currentColor">
+    <path
+      d="M14.9 11.7c0-2.5 2-3.7 2.1-3.8-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.8-1.7 0-3.2 1-4.1 2.5-1.8 3-.5 7.5 1.3 10 .9 1.2 1.9 2.6 3.2 2.5 1.3-.1 1.8-.8 3.3-.8 1.6 0 2 .8 3.3.8 1.4 0 2.3-1.2 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.9-1.1-2.9-4.4ZM12.5 4.3c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4Z"
+    ></path>
+  </svg>
+  <span>{label}</span>
+</a>
+
+<style>
+  .store {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.9rem 1.4rem;
+    border-radius: var(--radius-button);
+    background: var(--accent);
+    color: var(--accent-ink);
+    font-weight: 600;
+    font-size: 1rem;
+    line-height: 1;
+    transition: transform 160ms ease, opacity 160ms ease;
+  }
+
+  .store:hover {
+    text-decoration: none;
+    opacity: 0.92;
+  }
+
+  .store:active {
+    transform: scale(0.98);
+  }
+</style>
