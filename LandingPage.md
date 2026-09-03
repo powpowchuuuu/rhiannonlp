@@ -16,6 +16,9 @@ réelles — pochettes, compteurs d'auditeurs, notices, étiquettes.
 | `detail-ipad.png` | iPad, 1640 × 2360 | *stupid song* — Olivia Rodrigo | le héros, version large |
 | `detail-taylor-iphone.png` | iPhone | *I Knew It, I Knew You* — Taylor Swift | seconde section |
 | `detail-sabrina-iphone.png` | iPhone | *House Tour* — Sabrina Carpenter | seconde section |
+| `journal-iphone.png` | iPhone | — | « A journal, not a feed. » |
+| `tops-iphone.png` | iPhone | — | le nuage de mots |
+| `artist-iphone.png` | iPhone | Fleetwood Mac | « A page behind every track. » |
 
 Le composant `Shot.astro` attend `src` ; il rend un bloc vide tant qu'on ne le
 lui donne pas. `phone` pour les captures d'iPhone, sans lui pour l'iPad.
@@ -34,6 +37,63 @@ recadrer, ou à reprendre sur un appareil.
 sa pochette, et celle d'Olivia Rodrigo est claire. Ce n'est pas un défaut —
 c'est une fonctionnalité de l'app — mais il faut le savoir avant de composer la
 page, sous peine de croire à une incohérence.
+
+---
+
+## Les captures qui manquent
+
+Demandées par la page, dans l'ordre où elle en a besoin.
+
+### Indispensables — chacune a déjà sa place
+
+1. ~~**`journal-iphone.png`**~~ — **livrée.** Une journée bien remplie, des
+   pochettes variées, les en-têtes de journée. **Il y manque l'éventail** : le
+   compte de test n'a pas de suite d'un même artiste dans ses écoutes récentes,
+   et on ne peut pas en fabriquer une. À reprendre depuis un compte qui a
+   enchaîné trois titres du même artiste.
+
+2. **`review-iphone.png`** — la salle d'attente, deux ou trois écoutes en
+   attente d'approbation. Pour « Uncertain listens wait for your approval. »
+   C'est l'argument que personne d'autre ne tient : il mérite une image.
+
+3. ~~**`tops-iphone.png`**~~ — **livrée.** Neuf rangs avec leurs pochettes.
+   Sur « depuis toujours » et non sur la semaine : le compte de test n'a rien
+   écouté ces sept derniers jours, et la page s'affichait « Rien à classer ».
+
+### Reprise du héros
+
+4. **`detail-iphone.png`** et **`detail-ipad.png`** — les mêmes fiches, mais
+   depuis un compte qui a réellement écouté le morceau, pour que le compteur ne
+   soit pas à zéro. **Un titre beaucoup écouté, avec un chiffre qui parle, vaut
+   mieux que la plus belle des pochettes.**
+
+### Bienvenues, sans place réservée encore
+
+5. **`widget-iphone.png`** — l'écran d'accueil avec le widget et sa pochette.
+   Pour une petite section « Widget », à côté de ListenBrainz.
+
+6. **`listenbrainz-iphone.png`** — les réglages avec ListenBrainz activé, pour
+   la même section.
+
+7. ~~**`artist-iphone.png`**~~ — **livrée.** Fleetwood Mac : la photo en
+   bandeau, les écoutes personnelles et mondiales, la biographie, les titres
+   phares.
+
+### Ce que la capture au simulateur peut rendre, et ce qu'elle ne peut pas
+
+**Faisables sur un compte Last.fm public** — il suffit d'un pseudo, aucune
+connexion : le journal, le Top, une page album, une page artiste. Ces écrans ne
+lisent que des données publiques.
+
+**Impossibles sans l'appareil de Dereje** :
+
+- La **salle d'attente** n'a de contenu que si le moteur a vraiment relevé des
+  écoutes douteuses. On ne peut pas en fabriquer sans mentir sur ce que l'app
+  fait.
+- Le **widget** vit sur l'écran d'accueil, et un simulateur ne pose pas de
+  widget tout seul.
+- Le **compteur d'écoutes** d'une fiche est celui du compte connecté. Un compte
+  de test rendra toujours zéro.
 
 ---
 
