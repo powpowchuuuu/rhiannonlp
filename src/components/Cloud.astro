@@ -29,7 +29,7 @@ const { words, shot, shotAlt } = Astro.props;
     position: relative;
     display: grid;
     place-items: center;
-    min-height: 32rem;
+    min-height: clamp(30rem, 60vw, 40rem);
   }
 
   .words {
@@ -41,8 +41,9 @@ const { words, shot, shotAlt } = Astro.props;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    align-content: center;
-    gap: 0.4em 1.2em;
+    align-content: space-evenly;
+    gap: 0.6em 1.4em;
+    padding-block: 1rem;
     color: var(--ink-faint);
     opacity: 0.45;
     font-weight: 800;
@@ -55,6 +56,6 @@ const { words, shot, shotAlt } = Astro.props;
 
   .stage :global(.phone) {
     position: relative;
-    width: min(280px, 70%);
+    width: min(260px, 56%);
   }
 </style>
